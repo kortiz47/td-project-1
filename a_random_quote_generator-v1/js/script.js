@@ -47,10 +47,10 @@ const quotes = [
  * this function creates a random number between 0 and 5(the length of our quotes object), then selects a random object within our quotes array
 ***/
 
-function getRandomQuote(){
-  const randomNum = Math.floor(Math.random()*quotes.length)+1;
-  const randomQuote = quotes[randomNum];
-  return randomQuote;
+function getRandomQuote(arr){
+  const randomNum = Math.floor(Math.random()*arr.length)+1;
+  const randomQuoteObject = arr[randomNum];
+  return randomQuoteObject;
 }
 /**
  * `randomColor` function
@@ -66,27 +66,31 @@ function selectRandomColor(){
  * `printQuote` function
  * this function calls the getRandomQuote() function to obtain a random object from the quotes array that we then used to retrieve the values of the object i.e. the values of the quote, source, citation (if applicable), year(if applicable), and tags(if applicable) properties and appending them to our html variable. We then push the template literal stored in that html variable into our 'quote-box' div in our index.html document
 ***/
-function printQuote(){
+  function printQuote(){
   const randomRGB = `rgb(${selectRandomColor()}, ${selectRandomColor()}, ${selectRandomColor()})`;
-  const randomQuote = getRandomQuote();
+  const randomQuoteObject = getRandomQuote(quotes);
   let html = `
-    <p class="quote"> ${randomQuote.quote} </p>
-    <p class="source">${randomQuote.source}
+    <p class="quote"> ${randomQuoteObject.quote} </p>
+    <p class="source">${randomQuoteObject.source}
   `;
-  if(randomQuote.citation){
-    html+=`<span class="citation">${randomQuote.citation}</span>`;
+  if(randomQuoteObject.citation){
+    html+=`<span class="citation">${randomQuoteObject.citation}</span>`;
   }
-  if(randomQuote.year){
-    html+=`<span class="year">${randomQuote.year}</span>`;
+  if(randomQuoteObject.year){
+    html+=`<span class="year">${randomQuoteObject.year}</span>`;
   }
-  if(randomQuote.tags){
-    html+=`<span class="tags">, ${randomQuote.tags}</span>`;
+  if(randomQuoteObject.tags){
+    html+=`<span class="tags">, ${randomQuoteObject.tags}</span>`;
   }
   html+=`</p>`;
   document.getElementById('quote-box').innerHTML = html; 
   document.querySelector('body').style.backgroundColor = randomRGB;
 }
 
+function timer (){
+  setInterval(printQuote, 10000);
+}
+timer();
 
 
 
@@ -96,4 +100,4 @@ function printQuote(){
  * DO NOT CHANGE THE CODE BELOW!!
 ***/
 
-document.getElementById('load-quote').addEventListener("click", setInterval(printQuote, 10000), false);
+document.getElementById('load-quote').addEventListener("click", printQuote, false);
