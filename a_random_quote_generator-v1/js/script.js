@@ -9,6 +9,7 @@ project 1 - A Random Quote Generator
 
 /*** 
  * `quotes` array 
+ * Quotes array consists of 5 objects with at minimum (2) properties: quote & source and at maximum (5) properties: quote, source, citation, year, and tag
 ***/
 const quotes = [
   {
@@ -20,7 +21,7 @@ const quotes = [
     quote:"Our lives aren't just measured in years, they're measured in the lives of the people we touch around us." ,
     source: 'Peeta Mellark',
     citation:'The Hunger Games: Catching Fire',
-    year: 2013
+    year: 2013,
   },
   {
     quote: "Life is 10% what happens to you and 90% how you react to it.",
@@ -29,32 +30,65 @@ const quotes = [
   {
     quote: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
     source: "Thomas A. Edison",
-    year: 1879
+    year: 1879,
+    tags: 'Science'
   },
   {
     quote: "If you can't change reality, change your perception of it.",
     source: "Audre Lorde",
     citation: "Zami: A New Spelling of My Name",
-    year: 1982
+    year: 1982,
+    tags: 'Politics'
   }
 ];
 
 /***
  * `getRandomQuote` function
+ * this function creates a random number between 0 and 5(the length of our quotes object), then selects a random object within our quotes array
 ***/
 function getRandomQuote(){
   const randomNum = Math.floor(Math.random()*quotes.length)+1;
   const randomQuote = quotes[randomNum];
   return randomQuote;
 }
-
+/**
+ * `randomColor` function
+ * 
+ */
+// function selectRandomColor(){
+//   const red = Math.floor(Math.random()*255+1);
+//   const green = Math.floor(Math.random()*255+1);
+//   const blue = Math.floor(Math.random()*255+1);
+//   let rgb = `(${red}, ${green}, ${blue})`; 
+//   return rgb;
+//   }
+// console.log(selectRandomColor());
 
 /***
  * `printQuote` function
+ * this function calls the getRandomQuote() function to obtain a random object from the quotes array that we then used to retrieve the values of the object i.e. the values of the quote, source, citation (if applicable), year(if applicable), and tags(if applicable) properties and appending them to our html variable. We then push the template literal stored in that html variable into our 'quote-box' div in our index.html document
 ***/
 function printQuote(){
   const randomQuote = getRandomQuote();
+  let html = `
+    <p class="quote"> ${randomQuote.quote} </p>
+    <p class="source">${randomQuote.source}
+  `;
+  if(randomQuote.citation){
+    html+=`<span class="citation">${randomQuote.citation}</span>`;
+  }
+  if(randomQuote.year){
+    html+=`<span class="year">${randomQuote.year}</span>`;
+  }
+  if(randomQuote.tags){
+    html+=`<span class="tags">, ${randomQuote.tags}</span>`;
+  }
+  html+=`</p>`;
+  document.getElementById('quote-box').innerHTML = html; 
 }
+
+
+
 
 
 /***
