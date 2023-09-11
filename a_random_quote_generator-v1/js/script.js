@@ -46,6 +46,7 @@ const quotes = [
  * `getRandomQuote` function
  * this function creates a random number between 0 and 5(the length of our quotes object), then selects a random object within our quotes array
 ***/
+
 function getRandomQuote(){
   const randomNum = Math.floor(Math.random()*quotes.length)+1;
   const randomQuote = quotes[randomNum];
@@ -55,20 +56,18 @@ function getRandomQuote(){
  * `randomColor` function
  * 
  */
-// function selectRandomColor(){
-//   const red = Math.floor(Math.random()*255+1);
-//   const green = Math.floor(Math.random()*255+1);
-//   const blue = Math.floor(Math.random()*255+1);
-//   let rgb = `(${red}, ${green}, ${blue})`; 
-//   return rgb;
-//   }
-// console.log(selectRandomColor());
+function selectRandomColor(){
+  const color = Math.floor(Math.random()*256);
+  return color;
+  }
+
 
 /***
  * `printQuote` function
  * this function calls the getRandomQuote() function to obtain a random object from the quotes array that we then used to retrieve the values of the object i.e. the values of the quote, source, citation (if applicable), year(if applicable), and tags(if applicable) properties and appending them to our html variable. We then push the template literal stored in that html variable into our 'quote-box' div in our index.html document
 ***/
 function printQuote(){
+  const randomRGB = `rgb(${selectRandomColor()}, ${selectRandomColor()}, ${selectRandomColor()})`;
   const randomQuote = getRandomQuote();
   let html = `
     <p class="quote"> ${randomQuote.quote} </p>
@@ -85,6 +84,7 @@ function printQuote(){
   }
   html+=`</p>`;
   document.getElementById('quote-box').innerHTML = html; 
+  document.querySelector('body').style.backgroundColor = randomRGB;
 }
 
 
@@ -96,4 +96,4 @@ function printQuote(){
  * DO NOT CHANGE THE CODE BELOW!!
 ***/
 
-document.getElementById('load-quote').addEventListener("click", printQuote, false);
+document.getElementById('load-quote').addEventListener("click", setInterval(printQuote, 10000), false);
