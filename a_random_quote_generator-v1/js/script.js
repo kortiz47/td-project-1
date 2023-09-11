@@ -48,7 +48,7 @@ const quotes = [
 ***/
 
 function getRandomQuote(arr){
-  const randomNum = Math.floor(Math.random()*arr.length)+1;
+  const randomNum = Math.floor(Math.random()*arr.length);
   const randomQuoteObject = arr[randomNum];
   return randomQuoteObject;
 }
