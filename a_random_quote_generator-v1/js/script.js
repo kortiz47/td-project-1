@@ -87,6 +87,9 @@ function selectRandomColor(){
   document.querySelector('body').style.backgroundColor = randomRGB;
 }
 
+/**
+ * sets a regular timer to run the function printQuote every 10 seconds if the button is not pressed before then
+ */
 function timer (){
   setInterval(printQuote, 10000);
 }
